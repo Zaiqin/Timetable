@@ -1,0 +1,49 @@
+html {
+	background-color: #000;
+}
+
+body {
+	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	color: #333;
+	font-size: 15px
+}
+
+a {
+	text-decoration: none
+}
+
+.hero-unit {
+	color: #fff;
+}
+
+.row-heading {
+	font-weight: 800;
+	font-size: .7em;
+	text-transform: uppercase
+}
+
+.timetable .time-label {
+	font-size: .8em;
+	font-weight: 500
+}
+
+.timetable .time-entry.vip-only {
+	background-color: #c490f5;
+}
+
+.timetable .time-entry.sc1005 {
+	background-color: #7dcea0;
+}
+
+.timetable .time-entry.sc1005:hover {
+	background-color: #7dcea0;
+	filter: brightness(110%);
+}
+
+.timetable .time-entry.vip-only:hover {
+	background-color: #ae67f0
+}
+
+.timetable>aside .row-heading {
+	color: #fff;
+}
