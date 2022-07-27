@@ -31,10 +31,14 @@
         <option value="FRI">FRI</option>
       </select>
       <h3 style="display: inline-block; text-align: center;">Start Time</h3>
-      <input type="time" id="start" name="start" min="08:00" max="23:00" style="margin: 10px; display: inline-block; text-align: center;" required>
+      <select id="starthours"></select>
+      <select id="startminutes"></select>
       <h3 style="display: inline-block; text-align: center;">End Time</h3>
-      <input type="time" id="end" name="end" min="08:00" max="23:00" style="margin: 10px; display: inline-block; text-align: center;" required>
+      <select id="endhours"></select>
+      <select id="endminutes"></select>
       <button style="display: inline-block; text-align: center;" onclick="addEvent()">Add Event</button>
+
+
     </div>
 
     <script>
@@ -51,6 +55,32 @@
           document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo-1);
         }
       }
+
+      function createOption(value, text) {
+              var option = document.createElement('option');
+              option.text = text;
+              option.value = value;
+              return option;
+       }
+
+       var hourSelect = document.getElementById('starthours');
+       for(var i = 8; i <= 23; i++){
+              hourSelect.add(createOption(i, i));
+       }
+
+       var minutesSelect = document.getElementById('startminutes');
+       for(var i = 0; i < 60; i += 15) {
+              minutesSelect.add(createOption(i, i));
+       }
+       var hourSelect = document.getElementById('endhours');
+       for(var i = 8; i <= 23; i++){
+              hourSelect.add(createOption(i, i));
+       }
+
+       var minutesSelect = document.getElementById('endminutes');
+       for(var i = 0; i < 60; i += 15) {
+              minutesSelect.add(createOption(i, i));
+       }
     </script>
 
     <script src="scripts/timetable.js"></script>
@@ -80,11 +110,17 @@
       function addEvent() {
         if (document.getElementById("eventName").value == ""){
           window.alert('Please fill in a event name!');
-        } else if (document.getElementById("start").value > document.getElementById("end").value){
-          window.alert('Start time cannot be after end time!');
+        } else if ((document.getElementById("starthours").value == document.getElementById("endhours").value) && (document.getElementById("startminutes").value >= document.getElementById("endminutes").value)){
+            window.alert('Start time cannot be before or same as end time!');
+        } else if ((document.getElementById("starthours").value > document.getElementById("endhours").value)){
+            window.alert('Start time cannot be before or same as end time!2');
         } else {
-          window.alert('Adding ' + document.getElementById("eventName").value + " on " + document.getElementById("day-select").value + " from " + document.getElementById("start").value.substring(0,2) + " - " + document.getElementById("end").value);
-          timetable.addEvent(document.getElementById("eventName").value, document.getElementById("day-select").value, new Date(2015,7,17,document.getElementById("start").value.substring(0,2),document.getElementById("start").value.substring('3')), new Date(2015,7,17,document.getElementById("end").value.substring(0,2),document.getElementById("end").value.substring('3')));
+          window.alert('Adding ' + document.getElementById("eventName").value + " on " + document.getElementById("day-select").value + " from " + document.getElementById("starthours").value + document.getElementById("startminutes").value + " - " + document.getElementById("endhours").value + document.getElementById("endminutes").value);
+          var startMin = document.getElementById("startminutes").value;
+          var endMin = document.getElementById("endminutes").value;
+          if (startMin == 0){ startMin = 1}
+          if (endMin == 0){ endMin = 1}
+          timetable.addEvent(document.getElementById("eventName").value, document.getElementById("day-select").value, new Date(2015,7,17,document.getElementById("starthours").value,startMin), new Date(2015,7,17,document.getElementById("endhours").value,endMin));
           renderer.draw('.timetable');
         }
       }
