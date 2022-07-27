@@ -19,6 +19,24 @@
 
     <div class="timetable"></div>
 
+    <div class="eventCreator" style="display: block; text-align: center;">
+      <h3 style="display: inline-block; text-align: center;">Name of Event</h3>
+      <input id="eventName" type="text" style="margin: 10px; display: inline-block; text-align: center;" required>
+      <h3 style="display: inline-block; text-align: center;">Day</h3>
+      <select id="day-select" style="display: inline-block; text-align: center; margin: 10px;">
+        <option value="MON">MON</option>
+        <option value="TUE">TUE</option>
+        <option value="WED">WED</option>
+        <option value="THU">THU</option>
+        <option value="FRI">FRI</option>
+      </select>
+      <h3 style="display: inline-block; text-align: center;">Start Time</h3>
+      <input type="time" id="start" name="start" min="08:00" max="23:00" style="margin: 10px; display: inline-block; text-align: center;" required>
+      <h3 style="display: inline-block; text-align: center;">End Time</h3>
+      <input type="time" id="end" name="end" min="08:00" max="23:00" style="margin: 10px; display: inline-block; text-align: center;" required>
+      <button style="display: inline-block; text-align: center;" onclick="addEvent()">Add Event</button>
+    </div>
+
     <script>
       function nextWeek() {
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
@@ -58,6 +76,19 @@
 
       var renderer = new Timetable.Renderer(timetable);
       renderer.draw('.timetable');
+
+      function addEvent() {
+        if (document.getElementById("eventName").value == ""){
+          window.alert('Please fill in a event name!');
+        } else if (document.getElementById("start").value > document.getElementById("end").value){
+          window.alert('Start time cannot be after end time!');
+        } else {
+          window.alert('Adding ' + document.getElementById("eventName").value + " on " + document.getElementById("day-select").value + " from " + document.getElementById("start").value.substring(0,2) + " - " + document.getElementById("end").value);
+          timetable.addEvent(document.getElementById("eventName").value, document.getElementById("day-select").value, new Date(2015,7,17,document.getElementById("start").value.substring(0,2),document.getElementById("start").value.substring('3')), new Date(2015,7,17,document.getElementById("end").value.substring(0,2),document.getElementById("end").value.substring('3')));
+          renderer.draw('.timetable');
+        }
+      }
+
     </script>
 
 </body>
