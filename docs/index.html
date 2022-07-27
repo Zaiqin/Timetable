@@ -12,10 +12,29 @@
 
     <div class="hero-unit">
       <h1 style="text-align: center;">NTU TIMETABLE</h1>
-      <h2 style="text-align: center;">WEEK 1</h2>
-    </div>
+      <div class="weeksel" style="display: block; text-align: center;">
+        <button style="display: inline-block; text-align: center;" onclick="prevWeek()">&lt;</button>
+        <h2 style="display: inline-block; text-align: center; margin-left: 10px; margin-right: 10px;" class="weekTitle">WEEK 1</h2>
+        <button style="display: inline-block; text-align: center;" onclick="nextWeek()">&gt;</button>
+      </div>
 
     <div class="timetable"></div>
+
+    <script>
+      function nextWeek() {
+        var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
+        if (weekNo != 15) {
+          document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo+1);
+        }
+      }
+
+      function prevWeek() {
+        var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
+        if (weekNo != 1){
+          document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo-1);
+        }
+      }
+    </script>
 
     <script src="scripts/timetable.js"></script>
 
@@ -42,14 +61,5 @@
       renderer.draw('.timetable');
     </script>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-37417680-5');ga('send','pageview');
-    </script>
 </body>
 </html>
