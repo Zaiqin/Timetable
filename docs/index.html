@@ -107,23 +107,59 @@
       var renderer = new Timetable.Renderer(timetable);
       renderer.draw('.timetable');
 
-      function addEvent() {
+      function createEvent(name, date, sH, sM, eH, eM, nSM, nEM) {
+        var id = 0;
+        if (nSM == true){ id++ }
+        if (nEM == true){ id += 2}
+        switch (id){
+          case 1:
+            timetable.addEvent(name, date, new Date(2015,7,17,sH), new Date(2015,7,17,eH,eM)); break;
+          case 2:
+            timetable.addEvent(name, date, new Date(2015,7,17,sH,eH), new Date(2015,7,17,eH)); break;
+          case 3:
+            timetable.addEvent(name, date, new Date(2015,7,17,sH), new Date(2015,7,17,eH)); break;
+          default:
+            timetable.addEvent(name, date, new Date(2015,7,17,sH,eH), new Date(2015,7,17,eH,eM)); break;
+        }
+        renderer.draw('.timetable');
+      }
+
+      function addEvent(){
+        var noStartMin = false; var noEndMin = false;
+        var valid = false;
+        var name = document.getElementById("eventName").value;
+        var date = document.getElementById("day-select").value
+        var startH = document.getElementById("starthours").value;
+        var startM = document.getElementById("startminutes").value;
+        var endH = document.getElementById("endhours").value;
+        var endM = document.getElementById("endminutes").value;
         if (document.getElementById("eventName").value == ""){
           window.alert('Please fill in a event name!');
-        } else if ((document.getElementById("starthours").value == document.getElementById("endhours").value) && (document.getElementById("startminutes").value >= document.getElementById("endminutes").value)){
-            window.alert('Start time cannot be before or same as end time!');
-        } else if ((document.getElementById("starthours").value > document.getElementById("endhours").value)){
-            window.alert('Start time cannot be before or same as end time!2');
+        } else if (startH == endH){
+          if (startM == endM){
+            window.alert('Start time cannot be same as end time!')
+          } else if (startM > endM){
+            window.alert('Start time cannot be later than end time!')
+          } else {
+            valid = true;
+          }
+        } else if (startH < endH){
+            valid = true;
         } else {
-          window.alert('Adding ' + document.getElementById("eventName").value + " on " + document.getElementById("day-select").value + " from " + document.getElementById("starthours").value + document.getElementById("startminutes").value + " - " + document.getElementById("endhours").value + document.getElementById("endminutes").value);
-          var startMin = document.getElementById("startminutes").value;
-          var endMin = document.getElementById("endminutes").value;
-          if (startMin == 0){ startMin = 1}
-          if (endMin == 0){ endMin = 1}
-          timetable.addEvent(document.getElementById("eventName").value, document.getElementById("day-select").value, new Date(2015,7,17,document.getElementById("starthours").value,startMin), new Date(2015,7,17,document.getElementById("endhours").value,endMin));
-          renderer.draw('.timetable');
+          window.alert('Start time cannot be later than end time!')
+        }
+        if (startM == 0){
+          noStartMin = true;
+        }
+        if (endM == 0){
+          noEndMin = true;
+        }
+        if (valid == true){
+          createEvent(name, date, startH, startM, endH, endM, noStartMin, noEndMin);
         }
       }
+
+      
 
     </script>
 
