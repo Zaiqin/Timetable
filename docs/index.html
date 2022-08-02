@@ -19,7 +19,7 @@
 
     <div class="timetable"></div>
 
-    <div class="eventCreator" style="display: block; text-align: center;">
+    <!-- <div class="eventCreator" style="display: block; text-align: center;">
       <h3 style="display: inline-block; text-align: center;">Name</h3>
       <input id="eventName" type="text" style="margin: 10px; display: inline-block; text-align: center;" required>
       <h3 style="display: inline-block; text-align: center;">Day</h3>
@@ -37,10 +37,12 @@
       <select id="endhours"></select>
       <select id="endminutes"></select>
       <button style="display: inline-block; text-align: center;" onclick="addEvent()">Add Event</button>
-    </div>
+    </div> -->
 
+    <div class="eventCreator" style="display: block; text-align: center; margin-top: 20px;">
     <input type="file" id="uploadfile" accept=".csv">
     <button id="uploadconfirm">Upload file</button>
+    </div>
 
     <script type="text/javascript" src="scripts/papaparse.min.js"></script>
     <script>
