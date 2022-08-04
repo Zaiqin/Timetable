@@ -41,7 +41,7 @@
 
     <div class="eventCreator" style="display: block; text-align: center; margin-top: 20px;">
     <input type="file" id="uploadfile" accept=".csv">
-    <button id="uploadconfirm">Upload file / Update Timetable</button>
+    <button id="uploadconfirm">Upload file</button>
     </div>
 
     <script type="text/javascript" src="scripts/papaparse.min.js"></script>
@@ -75,7 +75,7 @@
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
         if (weekNo != 14) {
           document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo+1);
-          document.getElementById('uploadconfirm').style.color = 'red'
+          document.getElementById('uploadconfirm').click()
         }
       }
 
@@ -83,7 +83,7 @@
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
         if (weekNo != 1){
           document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo-1);
-          document.getElementById('uploadconfirm').style.color = 'red'
+          document.getElementById('uploadconfirm').click()
         }
       }
 
@@ -101,6 +101,11 @@
           header: true,
           complete: function(results){
             var prevCourse; var prevTitle; var prevId; var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
+            const arr = document.querySelectorAll('.time-entry');
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].remove();
+            }
+            
             for (var i = 0; i < results.data.length; i++) {
               if (results.data[i].Course == ""){
                 results.data[i].Course = prevCourse;
