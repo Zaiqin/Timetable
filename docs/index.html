@@ -46,58 +46,6 @@
 
     <script type="text/javascript" src="scripts/papaparse.min.js"></script>
     <script>
-      const uploadconfirm = document.getElementById('uploadconfirm').addEventListener('click', () => {
-        Papa.parse(document.getElementById('uploadfile').files[0],
-        {
-          download: true,
-          header: true,
-          complete: function(results){
-            var prevCourse; var prevTitle; var prevId; 
-            for (var i = 0; i < results.data.length; i++) {
-              if (results.data[i].Course == ""){
-                results.data[i].Course = prevCourse;
-              }
-              if (results.data[i].Title == ""){
-                results.data[i].Title = prevTitle;
-              }
-              if (results.data[i]["Index\nNumber"] == ""){
-                results.data[i]["Index\nNumber"] = prevId;
-              }
-              prevCourse = results.data[i].Course;
-              prevTitle = results.data[i].Title;
-              prevId = results.data[i]["Index\nNumber"];
-                createEvent(results.data[i].Course+"\n"+results.data[i].Title, results.data[i].Day, results.data[i].Time.substring(0,2),  results.data[i].Time.substring(2,4),  results.data[i].Time.substring(5,7), results.data[i].Time.substring(7,9), false, false);
-            }
-            console.log(results)
-
-          }
-        });
-      });
-      
-    </script>
-
-    <script>
-      function nextWeek() {
-        var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
-        if (weekNo != 13) {
-          document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo+1);
-        }
-      }
-
-      function prevWeek() {
-        var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
-        if (weekNo != 1){
-          document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo-1);
-        }
-      }
-
-      function createOption(value, text) {
-              var option = document.createElement('option');
-              option.text = text;
-              option.value = value;
-              return option;
-       }
-
        /*var hourSelect = document.getElementById('starthours');
        for(var i = 8; i <= 22; i++){
               hourSelect.add(createOption(i, i));
@@ -119,8 +67,70 @@
     </script>
 
     <script src="scripts/timetable.js"></script>
-
     <script>
+
+      var res;
+
+      function nextWeek() {
+        var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
+        if (weekNo != 13) {
+          document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo+1);
+        }
+      }
+
+      function prevWeek() {
+        var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
+        if (weekNo != 1){
+          document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo-1);
+        }
+      }
+
+      function createOption(value, text) {
+              var option = document.createElement('option');
+              option.text = text;
+              option.value = value;
+              return option;
+       }
+
+      const uploadconfirm = document.getElementById('uploadconfirm').addEventListener('click', () => {
+        Papa.parse(document.getElementById('uploadfile').files[0],
+        {
+          download: true,
+          header: true,
+          complete: function(results){
+            var prevCourse; var prevTitle; var prevId; 
+            for (var i = 0; i < results.data.length; i++) {
+              if (results.data[i].Course == ""){
+                results.data[i].Course = prevCourse;
+              }
+              if (results.data[i].Title == ""){
+                results.data[i].Title = prevTitle;
+              }
+              if (results.data[i]["Index\nNumber"] == ""){
+                results.data[i]["Index\nNumber"] = prevId;
+              }
+              prevCourse = results.data[i].Course;
+              prevTitle = results.data[i].Title;
+              prevId = results.data[i]["Index\nNumber"];
+                var opt = {
+                  data: {
+                    fullname: results.data[i].Course + ': ' +results.data[i].Title,
+                    type: results.data[i]["Class\nType"],
+                    venue: results.data[i].Venue,
+                    time: results.data[i].Time
+                  },
+                    onClick: function(event, timetable, clickEvent) {
+                      window.alert('Course: '+this.data.fullname+'\n'+'Type: '+this.data.type + '\n' + 'Venue: '+this.data.venue+'\n'+'Time: '+this.data.time)
+                    }
+                };
+                createEvent(results.data[i].Course+"\n"+results.data[i].Title, results.data[i].Day, results.data[i].Time.substring(0,2),  results.data[i].Time.substring(2,4),  results.data[i].Time.substring(5,7), results.data[i].Time.substring(7,9), false, false, opt);
+            }
+            console.log(results)
+            res = results;
+          }
+        });
+      });
+
       var timetable = new Timetable();
 
       timetable.setScope(8,0)
@@ -129,20 +139,20 @@
       timetable.addLocations(['MON', 'TUE', 'WED', 'THU', 'FRI']);
 
       //new Date("YYYY,MM,DD,HH,MM")
-      timetable.addEvent('SC1005 LEC/STU L1 LT2A', 'TUE', new Date(2015,7,17,8,30), new Date(2015,7,17,9,30), { class: 'sc1005', url: '#' });
+      /*timetable.addEvent('SC1005 LEC/STU L1 LT2A', 'TUE', new Date(2015,7,17,8,30), new Date(2015,7,17,9,30), { class: 'sc1005', url: '#' });
       timetable.addEvent('Zumba', 'TUE', new Date(2015,7,17,12), new Date(2015,7,17,13), { url: '#' });
       timetable.addEvent('Zumbu', 'TUE', new Date(2015,7,17,13,30), new Date(2015,7,17,15), { url: '#' });
       timetable.addEvent('Lasergaming', 'WED', new Date(2015,7,17,17,45), new Date(2015,7,17,19,30), { class: 'vip-only', data: { maxPlayers: 14, gameType: 'Capture the flag' } });
       timetable.addEvent('Hackathon', 'THU', new Date(2015,7,17,11,30), new Date(2015,7,17,20)); // options attribute is not used for this event
       timetable.addEvent('Tokyo Hackathon Livestream', 'FRI', new Date(2015,7,17,12,30), new Date(2015,7,17,16,15)); // options attribute is not used for this event
       timetable.addEvent('Lunch', 'MON', new Date(2015,7,17,9,30), new Date(2015,7,17,11,45), { onClick: function(event) {
-        window.alert('You clicked on the ' + event.name + ' event in ' + event.location + '. This is an example of a click handler');
-      }});
+        window.alert(event.name + '\n' + this.data.maxPlayers);
+      }});*/
 
       var renderer = new Timetable.Renderer(timetable);
       renderer.draw('.timetable');
 
-      function createEvent(name, day, sH, sM, eH, eM, nSM, nEM) {
+      function createEvent(name, day, sH, sM, eH, eM, nSM, nEM, opt) {
         var id = 0;
         if (nSM == true){ id++ }
         if (nEM == true){ id += 2}
@@ -150,16 +160,16 @@
         switch (id){
           case 1:
           console.log('1');
-            timetable.addEvent(name, day, new Date(2015,7,17,sH), new Date(2015,7,17,eH,eM)); break;
+            timetable.addEvent(name, day, new Date(2015,7,17,sH), new Date(2015,7,17,eH,eM), opt); break;
           case 2:
           console.log('2');
-            timetable.addEvent(name, day, new Date(2015,7,17,sH,sM), new Date(2015,7,17,eH)); break;
+            timetable.addEvent(name, day, new Date(2015,7,17,sH,sM), new Date(2015,7,17,eH), opt); break;
           case 3:
           console.log('3');
-            timetable.addEvent(name, day, new Date(2015,7,17,sH), new Date(2015,7,17,eH)); break;
+            timetable.addEvent(name, day, new Date(2015,7,17,sH), new Date(2015,7,17,eH), opt); break;
           default:
           console.log('default  ');
-            timetable.addEvent(name, day, new Date(2015,7,17,sH,sM), new Date(2015,7,17,eH,eM)); break;
+            timetable.addEvent(name, day, new Date(2015,7,17,sH,sM), new Date(2015,7,17,eH,eM), opt); break;
         }
         renderer.draw('.timetable');
       }
