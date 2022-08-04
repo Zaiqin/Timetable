@@ -41,7 +41,7 @@
 
     <div class="eventCreator" style="display: block; text-align: center; margin-top: 20px;">
     <input type="file" id="uploadfile" accept=".csv">
-    <button id="uploadconfirm">Upload file</button>
+    <button id="uploadconfirm">Upload file / Update Timetable</button>
     </div>
 
     <script type="text/javascript" src="scripts/papaparse.min.js"></script>
@@ -69,12 +69,13 @@
     <script src="scripts/timetable.js"></script>
     <script>
 
-      var res;
+      var changedWeek = false
 
       function nextWeek() {
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
-        if (weekNo != 13) {
+        if (weekNo != 14) {
           document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo+1);
+          document.getElementById('uploadconfirm').style.color = 'red'
         }
       }
 
@@ -82,6 +83,7 @@
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
         if (weekNo != 1){
           document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo-1);
+          document.getElementById('uploadconfirm').style.color = 'red'
         }
       }
 
@@ -98,7 +100,7 @@
           download: true,
           header: true,
           complete: function(results){
-            var prevCourse; var prevTitle; var prevId; 
+            var prevCourse; var prevTitle; var prevId; var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
             for (var i = 0; i < results.data.length; i++) {
               if (results.data[i].Course == ""){
                 results.data[i].Course = prevCourse;
@@ -112,21 +114,67 @@
               prevCourse = results.data[i].Course;
               prevTitle = results.data[i].Title;
               prevId = results.data[i]["Index\nNumber"];
+
+              var weeks = results.data[i].Remark
+              var weekArray = [];
+              if (weeks.includes("Teaching Wk")){
+                //console.log("range")
+                weeks = weeks.substring(11,weeks.length)
+                if (weeks.includes("-")) {
+                  //console.log("split by dash")
+                  temp = weeks.split("-")
+                  
+                  var index = Number(temp[0])
+                  //console.log("starting index is " + index + ", end is " + temp[1])
+                  while (index <= Number(temp[1])){
+                    //console.log(index)
+                    weekArray.push(index)
+                    index ++
+                  }
+                } else {
+                  //console.log("split by comma")
+                  weekArray = weeks.split(",")
+                  weekArray = weekArray.map(Number)
+                }
+              } else {
+                //console.log("nuasdf")
+                weekArray = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+              }
+              //console.log(results.data[i].Title + ': '+ weekArray)
+
                 var opt = {
                   data: {
                     fullname: results.data[i].Course + ': ' +results.data[i].Title,
                     type: results.data[i]["Class\nType"],
                     venue: results.data[i].Venue,
-                    time: results.data[i].Time
+                    time: results.data[i].Time,
+                    weekArray: weekArray
                   },
                     onClick: function(event, timetable, clickEvent) {
                       window.alert('Course: '+this.data.fullname+'\n'+'Type: '+this.data.type + '\n' + 'Venue: '+this.data.venue+'\n'+'Time: '+this.data.time)
                     }
                 };
+                //console.log(weekNo+', '+results.data[i].Title+results.data[i].Day+results.data[i].Time+results.data[i].Remark)
+                //console.log(weekArray)
+                if (weekArray.includes(weekNo)){
+                  //console.log("creating event")
                 createEvent(results.data[i].Course+"\n"+results.data[i].Title, results.data[i].Day, results.data[i].Time.substring(0,2),  results.data[i].Time.substring(2,4),  results.data[i].Time.substring(5,7), results.data[i].Time.substring(7,9), false, false, opt);
+                } else {
+                  //console.log('not in week ' + weekNo)
+                }
             }
-            console.log(results)
-            res = results;
+            document.getElementById('uploadconfirm').style.color = 'black'
+            const boxes = document.querySelectorAll('.time-entry');
+            //console.log("boxl is " + boxes.length)
+            for (var i = 0; i < boxes.length; i++) {
+              if(boxes[i].dataset.weekarray.includes(weekNo)){
+                if (boxes[i].dataset.venue == "ONLINE"){
+                  boxes[i].style.opacity = 0.65
+                }
+              } else {
+                boxes[i].remove();
+              }
+            }
           }
         });
       });
@@ -156,21 +204,18 @@
         var id = 0;
         if (nSM == true){ id++ }
         if (nEM == true){ id += 2}
-          console.log('name:'+name+'day:'+day+'sH:'+sH+'sM+'+sM+'eH'+eH+'eM'+eM+'nSM'+nSM+'nEM'+nEM);
+          console.log('id'+id+'name:'+name+'day:'+day+'sH:'+sH+'sM+'+sM+'eH'+eH+'eM'+eM+'nSM'+nSM+'nEM'+nEM);
         switch (id){
           case 1:
-          console.log('1');
             timetable.addEvent(name, day, new Date(2015,7,17,sH), new Date(2015,7,17,eH,eM), opt); break;
           case 2:
-          console.log('2');
             timetable.addEvent(name, day, new Date(2015,7,17,sH,sM), new Date(2015,7,17,eH), opt); break;
           case 3:
-          console.log('3');
             timetable.addEvent(name, day, new Date(2015,7,17,sH), new Date(2015,7,17,eH), opt); break;
           default:
-          console.log('default  ');
             timetable.addEvent(name, day, new Date(2015,7,17,sH,sM), new Date(2015,7,17,eH,eM), opt); break;
         }
+
         renderer.draw('.timetable');
       }
 
@@ -208,8 +253,6 @@
           createEvent(name, day, startH, startM, endH, endM, noStartMin, noEndMin);
         }
       }
-
-      
 
     </script>
 
