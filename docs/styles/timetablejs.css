@@ -149,7 +149,7 @@
 }
 
 .timetable ul.room-timeline li:first-child .time-entry {
-	height: 78px
+	height: 100px
 }
 
 .timetable ul.room-timeline li:after, .timetable ul.room-timeline li:before {
