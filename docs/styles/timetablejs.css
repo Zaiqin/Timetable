@@ -1,11 +1,11 @@
 .timetable {
 	display: flex;
 	align-items: stretch;
-	width: 90%;
+	width: 95%;
 	max-width: 100%;
 	box-sizing: border-box;
-	margin-left: 5%;
-	margin-right: 5%;
+	margin-left: 2.5%;
+	margin-right: 2.5%;
 }
 
 .timetable * {
