@@ -10,7 +10,7 @@
   <body>
 
     <div class="hero-unit">
-      <h1 style="text-align: center; margin: 5px;">NTU TIMETABLE</h1>
+      <h1 style="text-align: center; margin: 5px; margin-top:20px">NTU TIMETABLE</h1>
       <div class="weeksel" style="display: block; text-align: center;">
         <button style="display: inline-block; text-align: center;" onclick="prevWeek()">&lt;</button>
         <h2 style="display: inline-block; text-align: center; margin-left: 10px; margin-right: 10px;" class="weekTitle">WEEK 1</h2>
@@ -69,8 +69,6 @@
     <script src="scripts/timetable.js"></script>
     <script>
 
-      var changedWeek = false
-
       function nextWeek() {
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
         if (weekNo != 13) {
@@ -123,31 +121,24 @@
               var weeks = results.data[i].Remark
               var weekArray = [];
               if (weeks.includes("Teaching Wk")){
-                //console.log("range")
                 weeks = weeks.substring(11,weeks.length)
                 if (weeks.includes("-")) {
-                  //console.log("split by dash")
                   temp = weeks.split("-")
-                  
                   var index = Number(temp[0])
-                  //console.log("starting index is " + index + ", end is " + temp[1])
                   while (index <= Number(temp[1])){
-                    //console.log(index)
                     weekArray.push(index)
                     index ++
                   }
                 } else {
-                  //console.log("split by comma")
                   weekArray = weeks.split(",")
                   weekArray = weekArray.map(Number)
                 }
               } else {
-                //console.log("nuasdf")
                 weekArray = [1,2,3,4,5,6,7,8,9,10,11,12,13]
               }
-              //console.log(results.data[i].Title + ': '+ weekArray)
 
                 var opt = {
+                  class: results.data[i].Course,
                   data: {
                     fullname: results.data[i].Course + ': ' +results.data[i].Title,
                     type: results.data[i]["Class\nType"],
@@ -160,29 +151,19 @@
                       window.alert('Course: '+this.data.fullname+'\n'+'Type: '+this.data.type + '\n' + 'Venue: '+this.data.venue+'\n'+'Time: '+this.data.time)
                     }
                 };
-                //console.log(weekNo+', '+results.data[i].Title+results.data[i].Day+results.data[i].Time+results.data[i].Remark)
-                //console.log(weekArray)
                 if (weekArray.includes(weekNo)){
-                  //console.log("creating event")
                 createEvent(results.data[i].Course+"\n"+results.data[i].Title, results.data[i].Day, results.data[i].Time.substring(0,2),  results.data[i].Time.substring(2,4),  results.data[i].Time.substring(5,7), results.data[i].Time.substring(7,9), false, false, opt);
-                } else {
-                  //console.log('not in week ' + weekNo)
                 }
             }
-            var curNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
-            //console.log("checking all printed slots for week "+curNo)
             const boxes = document.querySelectorAll('.time-entry');
-            //console.log("boxl is " + boxes.length)
             for (var i = 0; i < boxes.length; i++) {
               var array = boxes[i].dataset.weekarray.split(',')
               array = array.map(Number)
-              if(array.includes(curNo)){
-                //console.log("in week " + curNo)
+              if(array.includes(weekNo)){
                 if (boxes[i].dataset.venue == "ONLINE"){
                   boxes[i].style.backgroundColor = "grey"
                 }
               } else {
-                //onsole.log('removing ' + boxes[i].dataset.fullname+' '+boxes[i].dataset.day+' '+boxes[i].dataset.time)
                 boxes[i].remove();
               }
             }

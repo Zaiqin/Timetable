@@ -31,12 +31,12 @@ a {
 	background-color: #c490f5;
 }
 
-.timetable .time-entry.sc1005 {
-	background-color: #7dcea0;
+.timetable .time-entry.SC1005 {
+	background-color: #c490f5;
 }
 
-.timetable .time-entry.sc1005:hover {
-	background-color: #7dcea0;
+.timetable .time-entry.SC1005:hover {
+	background-color: #c490f5;
 	filter: brightness(110%);
 }
 
