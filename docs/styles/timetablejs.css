@@ -164,7 +164,7 @@
 
 .timetable ul.room-timeline li:before {
 	background-image: linear-gradient(90deg, #d2d4d7 1px, transparent 0);
-	background-size: 16px auto
+	background-size: 24px auto
 }
 
 .timetable ul.room-timeline li:after {

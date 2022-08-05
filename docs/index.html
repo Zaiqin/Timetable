@@ -10,7 +10,7 @@
   <body>
 
     <div class="hero-unit">
-      <h2 style="text-align: center; margin: 5px; margin-top:10px">NTU TIMETABLE</h2>
+      <h2 style="text-align: center; margin-bottom: 0px;margin-top:10px">NTU TIMETABLE</h2>
       <div class="weeksel" style="display: block; text-align: center;">
         <button style="display: inline-block; text-align: center;" onclick="prevWeek()">&lt;</button>
         <h4 style="display: inline-block; text-align: center; margin-left: 5px; margin-right: 5px;" class="weekTitle">WEEK 1</h4>
@@ -69,6 +69,9 @@
     <script src="scripts/timetable.js"></script>
     <script>
 
+      var courseCodes = [];
+      var colorCodes = ["#75e5ef","#9ff26f","#ffcabf","#ef6ebe","#a76ce2","#8694f9","#ef818e","#fcd1c7","#8eff7c","#fcf6a4"]
+
       function nextWeek() {
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
         if (weekNo != 13) {
@@ -99,10 +102,10 @@
           header: true,
           complete: function(results){
             var prevCourse; var prevTitle; var prevId; var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
-            const arr = document.querySelectorAll('.time-entry');
+            /*const arr = document.querySelectorAll('.time-entry');
             for (var i = 0; i < arr.length; i++) {
                 arr[i].remove();
-            }
+            }*/
             
             for (var i = 0; i < results.data.length; i++) {
               if (results.data[i].Course == ""){
@@ -117,6 +120,10 @@
               prevCourse = results.data[i].Course;
               prevTitle = results.data[i].Title;
               prevId = results.data[i]["Index\nNumber"];
+
+              if (courseCodes.includes(results.data[i].Course) == false){
+                courseCodes.push(results.data[i].Course)
+              }
 
               var weeks = results.data[i].Remark
               var weekArray = [];

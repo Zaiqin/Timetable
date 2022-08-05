@@ -32,23 +32,6 @@ a {
 	filter: brightness(110%);
 }
 
-.timetable .time-entry.vip-only {
-	background-color: #c490f5;
-}
-
-.timetable .time-entry.SC1005 {
-	background-color: #c490f5;
-}
-
-.timetable .time-entry.SC1005:hover {
-	background-color: #c490f5;
-	filter: brightness(110%);
-}
-
-.timetable .time-entry.vip-only:hover {
-	background-color: #ae67f0
-}
-
 .timetable>aside .row-heading {
 	color: #fff;
 }
