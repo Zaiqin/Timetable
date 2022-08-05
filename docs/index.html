@@ -153,6 +153,7 @@
                     type: results.data[i]["Class\nType"],
                     venue: results.data[i].Venue,
                     time: results.data[i].Time,
+                    day: results.data[i].Day,
                     weekArray: weekArray
                   },
                     onClick: function(event, timetable, clickEvent) {
@@ -168,15 +169,20 @@
                   //console.log('not in week ' + weekNo)
                 }
             }
-            document.getElementById('uploadconfirm').style.color = 'black'
+            var curNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
+            //console.log("checking all printed slots for week "+curNo)
             const boxes = document.querySelectorAll('.time-entry');
             //console.log("boxl is " + boxes.length)
             for (var i = 0; i < boxes.length; i++) {
-              if(boxes[i].dataset.weekarray.includes(weekNo)){
+              var array = boxes[i].dataset.weekarray.split(',')
+              array = array.map(Number)
+              if(array.includes(curNo)){
+                //console.log("in week " + curNo)
                 if (boxes[i].dataset.venue == "ONLINE"){
                   boxes[i].style.backgroundColor = "grey"
                 }
               } else {
+                //onsole.log('removing ' + boxes[i].dataset.fullname+' '+boxes[i].dataset.day+' '+boxes[i].dataset.time)
                 boxes[i].remove();
               }
             }
@@ -209,7 +215,7 @@
         var id = 0;
         if (nSM == true){ id++ }
         if (nEM == true){ id += 2}
-          console.log('id'+id+'name:'+name+'day:'+day+'sH:'+sH+'sM+'+sM+'eH'+eH+'eM'+eM+'nSM'+nSM+'nEM'+nEM);
+          console.log(name+', '+day+' '+sH+':'+sM+'-'+eH+':'+eM);
         switch (id){
           case 1:
             timetable.addEvent(name, day, new Date(2015,7,17,sH), new Date(2015,7,17,eH,eM), opt); break;
