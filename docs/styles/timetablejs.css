@@ -128,7 +128,7 @@
 
 .timetable ul.room-timeline li {
 	position: relative;
-	background-color: #f4f4f4;
+	background-color: #e1e2e4;
 	height: 10	0px
 }
 
@@ -163,12 +163,12 @@
 }
 
 .timetable ul.room-timeline li:before {
-	background-image: linear-gradient(90deg, #e5e5e5 1px, transparent 0);
-	background-size: 24px auto
+	background-image: linear-gradient(90deg, #d2d4d7 1px, transparent 0);
+	background-size: 16px auto
 }
 
 .timetable ul.room-timeline li:after {
-	background-image: linear-gradient(90deg, #e5e5e5, #e5e5e5 1px, #f4f4f4 0, #f4f4f4 2px, #e5e5e5 0, #e5e5e5 3px, transparent 0, transparent);
+	background-image: linear-gradient(90deg, #d2d4d7, #d2d4d7 1px, #a5a9af 0, #a5a9af 2px, #d2d4d7 0, #d2d4d7 3px, transparent 0, transparent);
 	background-size: 96px auto;
 	background-position: -2px 0
 }
