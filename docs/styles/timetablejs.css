@@ -1,11 +1,11 @@
 .timetable {
 	display: flex;
 	align-items: stretch;
-	width: 95%;
+	width: 90%;
 	max-width: 100%;
 	box-sizing: border-box;
-	margin-left: 2.5%;
-	margin-right: 2.5%;
+	margin-left: 5%;
+	margin-right: 5%;
 }
 
 .timetable * {
@@ -33,7 +33,8 @@
 .timetable>aside li {
 	padding: 0 15px;
 	background-color: #575757;
-	line-height: 80px
+	line-height: 100px;
+	text-align: center;
 }
 
 .timetable>aside li:not(:last-of-type) {
@@ -60,7 +61,7 @@
 }
 
 .timetable aside li, .timetable time li {
-	height: 80px
+	height: 100px
 }
 
 .timetable>section {
@@ -128,11 +129,11 @@
 .timetable ul.room-timeline li {
 	position: relative;
 	background-color: #f4f4f4;
-	height: 80px
+	height: 10	0px
 }
 
 .timetable ul.room-timeline li:nth-of-type(odd) {
-	background-color: #fdfdfd
+	background-color: #fff
 }
 
 .timetable ul.room-timeline li:first-of-type {
@@ -176,7 +177,7 @@
 	background-color: #ec6a5e;
 	border-radius: 5px;
 	transition: background-color .2s;
-	height: 80px;
+	height: 100%;
 	display: block;
 	position: absolute;
 	z-index: 2;
@@ -184,7 +185,6 @@
 	white-space: normal;
 	overflow: hidden;
 	color: #000; /*Colour of entry */
-	border: 2px solid #666;
 	transform-style: preserve-3d
 }
 
@@ -192,16 +192,14 @@
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
-	word-break: break-word;
    overflow: hidden;
    text-overflow: ellipsis;
    display: -webkit-box;
-   line-height: 16px; /* fallback */
-   max-height: 32px; /* fallback */
-   -webkit-line-clamp: 5; /* number of lines to show */
+   font-size: 12px;
+   line-height: 15px; /* fallback */
+   max-height: 90px; /* fallback */
+   -webkit-line-clamp: 6; /* number of lines to show */
    -webkit-box-orient: vertical;
+   white-space: pre-wrap;
 }
 
-.timetable .time-entry:hover {
-	background-color: #e74030
-}

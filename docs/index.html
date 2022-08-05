@@ -10,10 +10,10 @@
   <body>
 
     <div class="hero-unit">
-      <h1 style="text-align: center; margin: 5px; margin-top:20px">NTU TIMETABLE</h1>
+      <h2 style="text-align: center; margin: 5px; margin-top:10px">NTU TIMETABLE</h2>
       <div class="weeksel" style="display: block; text-align: center;">
         <button style="display: inline-block; text-align: center;" onclick="prevWeek()">&lt;</button>
-        <h2 style="display: inline-block; text-align: center; margin-left: 10px; margin-right: 10px;" class="weekTitle">WEEK 1</h2>
+        <h4 style="display: inline-block; text-align: center; margin-left: 5px; margin-right: 5px;" class="weekTitle">WEEK 1</h4>
         <button style="display: inline-block; text-align: center;" onclick="nextWeek()">&gt;</button>
       </div>
 
@@ -152,7 +152,13 @@
                     }
                 };
                 if (weekArray.includes(weekNo)){
-                createEvent(results.data[i].Course+"\n"+results.data[i].Title, results.data[i].Day, results.data[i].Time.substring(0,2),  results.data[i].Time.substring(2,4),  results.data[i].Time.substring(5,7), results.data[i].Time.substring(7,9), false, false, opt);
+                  var dispText;
+                  if (results.data[i].Remark.includes("Teaching Wk")){
+                    dispText = results.data[i].Course+"\n"+results.data[i].Venue+"\nWeek "+results.data[i].Remark.substring(11,results.data[i].Remark.length)
+                  } else {
+                    dispText = results.data[i].Course+"\n"+results.data[i].Venue+"\n"+results.data[i].Remark
+                  }
+                createEvent(dispText, results.data[i].Day, results.data[i].Time.substring(0,2),  results.data[i].Time.substring(2,4),  results.data[i].Time.substring(5,7), results.data[i].Time.substring(7,9), false, false, opt);
                 }
             }
             const boxes = document.querySelectorAll('.time-entry');
@@ -161,7 +167,7 @@
               array = array.map(Number)
               if(array.includes(weekNo)){
                 if (boxes[i].dataset.venue == "ONLINE"){
-                  boxes[i].style.backgroundColor = "grey"
+                  //boxes[i].style.filter = "brightness(90%)"
                 }
               } else {
                 boxes[i].remove();

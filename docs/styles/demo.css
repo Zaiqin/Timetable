@@ -3,7 +3,7 @@ html {
 }
 
 body {
-	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji, sans-serif;
 	color: #333;
 	font-size: 15px
 }
@@ -19,12 +19,17 @@ a {
 .row-heading {
 	font-weight: 800;
 	font-size: .7em;
-	text-transform: uppercase
+	text-transform: uppercase;
+	text-align: center;
 }
 
 .timetable .time-label {
-	font-size: .8em;
+	font-size: .9em;
 	font-weight: 500
+}
+
+.timetable .time-entry:hover {
+	filter: brightness(110%);
 }
 
 .timetable .time-entry.vip-only {
