@@ -3,21 +3,32 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NTU TIMETABLE</title>
+    <title>NTU Timetable</title>
     <link rel="stylesheet" href="styles/timetablejs.css">
     <link rel="stylesheet" href="styles/demo.css">
   </head>
   <body>
     
+    <div class="topnav">
+      <img src="ntu.png" style="float: left; padding: 12px; height: 25px;">
+      <a>NTU Timetable</a>
+    </div>
+
     <div class="hero-unit">
-      <h2 style="text-align: center; margin-bottom: 0px;margin-top:10px">NTU TIMETABLE</h2>
       <div class="weeksel" style="display: block; text-align: center;">
         <button style="display: inline-block; text-align: center;" onclick="prevWeek()">&lt;</button>
-        <h4 style="display: inline-block; text-align: center; margin-left: 5px; margin-right: 5px;" class="weekTitle">WEEK 1</h4>
+        <h3 style="display: inline-block; text-align: center; margin-left: 5px; margin-right: 5px;" class="weekTitle">WEEK 1</h3>
         <button style="display: inline-block; text-align: center;" onclick="nextWeek()">&gt;</button>
       </div>
 
     <div class="timetable"></div>
+
+    <div class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <p id="textmodal">Hello, I am a modal!</p>
+      </div>
+    </div>
 
     <!-- <div class="eventCreator" style="display: block; text-align: center;">
       <h3 style="display: inline-block; text-align: center;">Name</h3>
@@ -157,7 +168,8 @@
                     weekArray: weekArray
                   },
                     onClick: function(event, timetable, clickEvent) {
-                      window.alert('Course: '+this.data.fullname+'\n'+'Type: '+this.data.type + '\n' + 'Venue: '+this.data.venue+'\n'+'Time: '+this.data.time+'\n'+'Index: '+this.data.indexNo)
+                      toggleModal(this.data,true)
+                      //window.alert('Course: '+this.data.fullname+'\n'+'Type: '+this.data.type + '\n' + 'Venue: '+this.data.venue+'\n'+'Time: '+this.data.time+'\n'+'Index: '+this.data.indexNo)
                     }
                 };
                 if (weekArray.includes(weekNo)){
@@ -265,6 +277,26 @@
           createEvent(name, day, startH, startM, endH, endM, noStartMin, noEndMin);
         }
       }
+
+      const modal = document.querySelector(".modal");
+      const trigger = document.querySelector(".trigger");
+      const closeButton = document.querySelector(".close-button");
+
+      function toggleModal(data,correct) {
+          modal.classList.toggle("show-modal");
+          if (correct == true){
+            document.getElementById("textmodal").innerHTML = "<b>"+'Course: '+"</b>"+data.fullname+"<br />"+"<b>"+'Type: '+"</b>"+data.type + "<br />" + "<b>"+'Venue: '+"</b>"+data.venue+"<br />"+"<b>"+'Time: '+"</b>"+data.time+"<br />"+"<b>"+'Class Index: '+"</b>"+data.indexNo
+          }
+      }
+
+      function windowOnClick(event) {
+          if (event.target === modal) {
+              toggleModal();
+          }
+      }
+
+      closeButton.addEventListener("click", toggleModal);
+      window.addEventListener("click", windowOnClick);
 
     </script>
 
