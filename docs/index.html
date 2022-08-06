@@ -10,15 +10,15 @@
   <body>
     
     <div class="topnav">
-      <img src="ntu.png" style="float: left; padding: 12px; height: 20px;">
-      <a>NTU Timetable</a>
+      <img src="NTU-Logo-300x200.png" style="float: left; padding-left: 20px; height: 50px;">
+      <a style="color: white;">NTU Timetable by Zai Qin</a>
     </div>
 
     <div class="hero-unit">
       <div class="weeksel" style="display: block; text-align: center;">
-        <button style="display: inline-block; text-align: center;" onclick="prevWeek()">&lt;</button>
+        <button style="display: inline-block; text-align: center; padding: 5px 7px 2px 7px;" onclick="prevWeek()">&lt;</button>
         <h2 style="display: inline-block; text-align: center; margin-left: 5px; margin-right: 5px;" class="weekTitle">WEEK 1</h2>
-        <button style="display: inline-block; text-align: center;" onclick="nextWeek()">&gt;</button>
+        <button style="display: inline-block; text-align: center; padding: 5px 7px 2px 7px;" onclick="nextWeek()">&gt;</button>
       </div>
 
     <div class="timetable"></div>
@@ -81,7 +81,7 @@
     <script>
 
       var courseCodes = [];
-      var colorCodes = ["#75e5ef","#9ff26f","#ffcabf","#ef6ebe","#a76ce2","#8694f9","#ef818e","#fcd1c7","#8eff7c","#fcf6a4"]
+      var colorCodes = ["#f2777a","#e0587c","#f99157","#ffcc66","#99cc99","#66cccc","#6699cc","#cc99cc","d27b53"]
 
       function nextWeek() {
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
