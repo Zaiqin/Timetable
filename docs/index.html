@@ -30,52 +30,12 @@
       </div>
     </div>
 
-    <!-- <div class="eventCreator" style="display: block; text-align: center;">
-      <h3 style="display: inline-block; text-align: center;">Name</h3>
-      <input id="eventName" type="text" style="margin: 10px; display: inline-block; text-align: center;" required>
-      <h3 style="display: inline-block; text-align: center;">Day</h3>
-      <select id="day-select" style="display: inline-block; text-align: center; margin: 10px;">
-        <option value="MON">MON</option>
-        <option value="TUE">TUE</option>
-        <option value="WED">WED</option>
-        <option value="THU">THU</option>
-        <option value="FRI">FRI</option>
-      </select>
-      <h3 style="display: inline-block; text-align: center;">Start Time</h3>
-      <select id="starthours"></select>
-      <select id="startminutes"></select>
-      <h3 style="display: inline-block; text-align: center;">End Time</h3>
-      <select id="endhours"></select>
-      <select id="endminutes"></select>
-      <button style="display: inline-block; text-align: center;" onclick="addEvent()">Add Event</button>
-    </div> -->
-
     <div class="eventCreator" style="display: block; text-align: center; margin-top: 10px;">
     <input type="file" id="uploadfile" accept=".csv">
-    <button id="uploadconfirm">Upload file</button>
+    <button id="uploadconfirm">Display Timetable</button>
     </div>
 
     <script type="text/javascript" src="scripts/papaparse.min.js"></script>
-    <script>
-       /*var hourSelect = document.getElementById('starthours');
-       for(var i = 8; i <= 22; i++){
-              hourSelect.add(createOption(i, i));
-       }
-
-       var minutesSelect = document.getElementById('startminutes');
-       for(var i = 0; i < 60; i += 10) {
-              minutesSelect.add(createOption(i, i));
-       }
-       var hourSelect = document.getElementById('endhours');
-       for(var i = 8; i <= 22; i++){
-              hourSelect.add(createOption(i, i));
-       }
-
-       var minutesSelect = document.getElementById('endminutes');
-       for(var i = 0; i < 60; i += 10) {
-              minutesSelect.add(createOption(i, i));
-       }*/
-    </script>
 
     <script src="scripts/timetable.js"></script>
     <script>
@@ -209,17 +169,6 @@
       timetable.useTwelveHour()
 
       timetable.addLocations(['MON', 'TUE', 'WED', 'THU', 'FRI']);
-
-      //new Date("YYYY,MM,DD,HH,MM")
-      /*timetable.addEvent('SC1005 LEC/STU L1 LT2A', 'TUE', new Date(2015,7,17,8,30), new Date(2015,7,17,9,30), { class: 'sc1005', url: '#' });
-      timetable.addEvent('Zumba', 'TUE', new Date(2015,7,17,12), new Date(2015,7,17,13), { url: '#' });
-      timetable.addEvent('Zumbu', 'TUE', new Date(2015,7,17,13,30), new Date(2015,7,17,15), { url: '#' });
-      timetable.addEvent('Lasergaming', 'WED', new Date(2015,7,17,17,45), new Date(2015,7,17,19,30), { class: 'vip-only', data: { maxPlayers: 14, gameType: 'Capture the flag' } });
-      timetable.addEvent('Hackathon', 'THU', new Date(2015,7,17,11,30), new Date(2015,7,17,20)); // options attribute is not used for this event
-      timetable.addEvent('Tokyo Hackathon Livestream', 'FRI', new Date(2015,7,17,12,30), new Date(2015,7,17,16,15)); // options attribute is not used for this event
-      timetable.addEvent('Lunch', 'MON', new Date(2015,7,17,9,30), new Date(2015,7,17,11,45), { onClick: function(event) {
-        window.alert(event.name + '\n' + this.data.maxPlayers);
-      }});*/
 
       var renderer = new Timetable.Renderer(timetable);
       renderer.draw('.timetable');
