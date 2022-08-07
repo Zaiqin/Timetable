@@ -57,10 +57,11 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    padding: 1rem 1.5rem;
+    padding: 15px;
     width: 24rem;
     border-radius: 0.5rem;
     color: black;
+    font-size: 12px;
 }
 
 .close-button {
