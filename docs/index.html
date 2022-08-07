@@ -31,9 +31,17 @@
       </div>
     </div>
 
+    <div class="modal2">
+      <div class="modal-content2">
+          <span class="close-button2">&times;</span>
+          <img src="1.png" style="max-width: 500px;">
+      </div>
+    </div>
+
     <div class="eventCreator" style="display: block; text-align: center; margin-top: 15px;">
     <input type="file" id="uploadfile" accept=".csv">
     <button id="uploadconfirm">Display Timetable</button>
+    <button id="guide" onclick="toggleModal2()">User Guide</button>
     </div>
 
     <script type="text/javascript" src="scripts/papaparse.min.js"></script>
@@ -242,11 +250,23 @@
       function windowOnClick(event) {
           if (event.target === modal) {
               toggleModal();
+          } else if (event.target === modal2) {
+              toggleModal2();
           }
       }
 
       closeButton.addEventListener("click", toggleModal);
       window.addEventListener("click", windowOnClick);
+
+      const modal2 = document.querySelector(".modal2");
+      const trigger2 = document.querySelector(".trigger2");
+      const closeButton2 = document.querySelector(".close-button2");
+
+      function toggleModal2(data,correct) {
+          modal2.classList.toggle("show-modal2");
+      }
+
+      closeButton2.addEventListener("click", toggleModal2);
 
     </script>
 
