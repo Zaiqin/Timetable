@@ -168,8 +168,7 @@
                 //console.log("index for "+ boxes[i].dataset.id +" is " + courseCodes.indexOf(boxes[i].dataset.id))
                 boxes[i].style.backgroundColor = colorCodes[courseCodes.indexOf(boxes[i].dataset.id)]
                 if (boxes[i].dataset.venue == "ONLINE"){
-                  boxes[i].style.opacity = "80%"
-                  boxes[i].style.color = "yellow"
+                  boxes[i].style.border = "3px dashed white"
                 }
               } else {
                 boxes[i].remove();
