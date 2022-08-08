@@ -141,6 +141,7 @@
                     day: results.data[i].Day,
                     id: results.data[i].Course,
                     indexNo: results.data[i]["Index\nNumber"],
+                    group: results.data[i].Group,
                     weekArray: weekArray
                   },
                     onClick: function(event, timetable, clickEvent) {
@@ -250,7 +251,7 @@
       function toggleModal(data,correct) {
           modal.classList.toggle("show-modal");
           if (correct == true){
-            document.getElementById("textmodal").innerHTML = "<b>"+'Course: '+"</b>"+data.fullname+"<br />"+"<b>"+'Type: '+"</b>"+data.type + "<br />" + "<b>"+'Venue: '+"</b>"+data.venue+"<br />"+"<b>"+'Time: '+"</b>"+data.time+"<br />"+"<b>"+'Class Index: '+"</b>"+data.indexNo
+            document.getElementById("textmodal").innerHTML = "<b>"+'Course: '+"</b>"+data.fullname+"<br />"+"<b>"+'Type: '+"</b>"+data.type + "<br />" + "<b>"+'Venue: '+"</b>"+data.venue+"<br />"+"<b>"+'Time: '+"</b>"+data.time+"<br />"+"<b>"+'Class Index: '+"</b>"+data.indexNo+"<br />"+"<b>"+'Group: '+"</b>"+data.group
           }
       }
 
