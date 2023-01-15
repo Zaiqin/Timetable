@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NTU TimeVis</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <link rel="stylesheet" href="styles/timetablejs.css">
+    <link rel="stylesheet" href="styles/demo.css">
+  </head>
+  <body>
+    
+    <div class="topnav">
+      <img src="logo.png" style="float: left; margin: 10px 0px 10px 15px; height: 30px;">
+      <a style="color: white;">NTU Timetable Visualiser</a>
+    </div>
+
+    <div class="hero-unit">
+      <div class="weeksel" style="display: block; text-align: center;">
+        <button style="display: inline-block; text-align: center; padding: 5px 7px 2px 7px; background-color: #222325; color: #e85c04; font-size: 25px; border: none" onclick="prevWeek()">&lt;</button>
+        <h2 style="display: inline-block; text-align: center; margin-left: 25px; margin-right: 25px;" class="weekTitle">WEEK 1</h2>
+        <button style="display: inline-block; text-align: center; padding: 5px 7px 2px 7px; background-color: #222325; color: #e85c04; font-size: 25px; border: none" onclick="nextWeek()">&gt;</button>
+      </div>
+
+    <div class="timetable"></div>
+
+    <div class="modal">
+      <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <p id="textmodal">Hello, I am a modal!</p>
+      </div>
+    </div>
+
+    <div class="modal2">
+      <div class="modal-content2" style="width: 80%; height: 70%;">
+          <span class="close-button2">&times;</span>
+          <div class="container_row" style="overflow-y: scroll; overflow-x: hidden; white-space: nowrap; max-height: 100%;">
+            <div><img src="1.png" style="max-width: 100%; display: inline-block;"></div>
+            <div><img src="2.png" style="max-width: 100%; display: inline-block;"></div>
+            <div><img src="3.png" style="max-width: 100%; display: inline-block;"></div>
+            <div><img src="4.png" style="max-width: 100%; display: inline-block;"></div>
+            <div><img src="5.png" style="max-width: 100%; display: inline-block;"></div>
+          </div>
+      </div>
+    </div>
+
+    <div class="eventCreator" style="display: block; text-align: center; margin-top: 15px;">
+    <input type="file" id="uploadfile" accept=".csv">
+    <button id="uploadconfirm" class="but">Generate</button>
+    <button id="guide" onclick="toggleModal2()" class="but">Help</button>
+    <h5 style="float:right; margin-right: 40px; margin-top: 10px; color: lightgrey;">Created by: Zai Qin</h5>
+    </div>
+
+    <script type="text/javascript" src="scripts/papaparse.min.js"></script>
+
+    <script src="scripts/timetable.js"></script>
+    <script>
+
+      var courseCodes = [];
+      var colorCodes = ["#f2777a","#e0587c","#f99157","#ffcc66","#99cc99","#66cccc","#6699cc","#cc99cc","d27b53"]
+
+      function nextWeek() {
+        var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
+        if (weekNo != 13) {
+          document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo+1);
+          document.getElementById('uploadconfirm').click()
+        }
+      }
+
+      function prevWeek() {
+        var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
+        if (weekNo != 1){
+          document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo-1);
+          document.getElementById('uploadconfirm').click()
+        }
+      }
+
+      function createOption(value, text) {
+              var option = document.createElement('option');
+              option.text = text;
+              option.value = value;
+              return option;
+       }
+
+      const uploadconfirm = document.getElementById('uploadconfirm').addEventListener('click', () => {
+        Papa.parse(document.getElementById('uploadfile').files[0],
+        {
+          download: true,
+          header: true,
+          complete: function(results){
+            var prevCourse; var prevTitle; var prevId; var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
+            /*const arr = document.querySelectorAll('.time-entry');
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].remove();
+            }*/
+            
+            for (var i = 0; i < results.data.length; i++) {
+              if (results.data[i].Course == ""){
+                results.data[i].Course = prevCourse;
+              }
+              if (results.data[i].Title == ""){
+                results.data[i].Title = prevTitle;
+              }
+              if (results.data[i]["Index\nNumber"] == ""){
+                results.data[i]["Index\nNumber"] = prevId;
+              }
+              prevCourse = results.data[i].Course;
+              prevTitle = results.data[i].Title;
+              prevId = results.data[i]["Index\nNumber"];
+
+              if (courseCodes.includes(results.data[i].Course) == false){
+                courseCodes.push(results.data[i].Course)
+              }
+
+              var weeks = results.data[i].Remark
+              var weekArray = [];
+              if (weeks.includes("Teaching Wk")){
+                weeks = weeks.substring(11,weeks.length)
+                if (weeks.includes("-")) {
+                  temp = weeks.split("-")
+                  var index = Number(temp[0])
+                  while (index <= Number(temp[1])){
+                    weekArray.push(index)
+                    index ++
+                  }
+                } else {
+                  weekArray = weeks.split(",")
+                  weekArray = weekArray.map(Number)
+                }
+              } else {
+                weekArray = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+              }
+
+                var opt = {
+                  class: results.data[i].Course,
+                  data: {
+                    fullname: results.data[i].Course + ': ' +results.data[i].Title,
+                    type: results.data[i]["Class\nType"],
+                    venue: results.data[i].Venue,
+                    time: results.data[i].Time,
+                    day: results.data[i].Day,
+                    id: results.data[i].Course,
+                    indexNo: results.data[i]["Index\nNumber"],
+                    group: results.data[i].Group,
+                    weekArray: weekArray
+                  },
+                    onClick: function(event, timetable, clickEvent) {
+                      toggleModal(this.data,true)
+                      //window.alert('Course: '+this.data.fullname+'\n'+'Type: '+this.data.type + '\n' + 'Venue: '+this.data.venue+'\n'+'Time: '+this.data.time+'\n'+'Index: '+this.data.indexNo)
+                    }
+                };
+                if (weekArray.includes(weekNo)){
+                  var dispText;
+                  if (results.data[i].Remark.includes("Teaching Wk")){
+                    dispText = results.data[i].Course+"\n"+results.data[i].Venue+"\nWeek "+results.data[i].Remark.substring(11,results.data[i].Remark.length)
+                  } else {
+                    dispText = results.data[i].Course+"\n"+results.data[i].Venue+"\n"+results.data[i].Remark
+                  }
+                createEvent(dispText, results.data[i].Day, results.data[i].Time.substring(0,2),  results.data[i].Time.substring(2,4),  results.data[i].Time.substring(5,7), results.data[i].Time.substring(7,9), false, false, opt);
+                }
+            }
+            courseCodes = courseCodes.map(String)
+            //console.log("courseCodes are: " + courseCodes)
+
+            const boxes = document.querySelectorAll('.time-entry');
+            for (var i = 0; i < boxes.length; i++) {
+              var array = boxes[i].dataset.weekarray.split(',')
+              array = array.map(Number)
+              if(array.includes(weekNo)){
+                //console.log("index for "+ boxes[i].dataset.id +" is " + courseCodes.indexOf(boxes[i].dataset.id))
+                boxes[i].style.backgroundColor = colorCodes[courseCodes.indexOf(boxes[i].dataset.id)]
+                if (boxes[i].dataset.venue == "ONLINE"){
+                  boxes[i].style.border = "3px dashed white"
+                }
+              } else {
+                boxes[i].remove();
+              }
+            }
+          }
+        });
+      });
+
+      var timetable = new Timetable();
+
+      timetable.setScope(8,0)
+      timetable.useTwelveHour()
+
+      timetable.addLocations(['MON', 'TUE', 'WED', 'THU', 'FRI']);
+
+      var renderer = new Timetable.Renderer(timetable);
+      renderer.draw('.timetable');
+
+      function createEvent(name, day, sH, sM, eH, eM, nSM, nEM, opt) {
+        var id = 0;
+        if (nSM == true){ id++ }
+        if (nEM == true){ id += 2}
+          console.log(name+', '+day+' '+sH+':'+sM+'-'+eH+':'+eM);
+        switch (id){
+          case 1:
+            timetable.addEvent(name, day, new Date(2015,7,17,sH), new Date(2015,7,17,eH,eM), opt); break;
+          case 2:
+            timetable.addEvent(name, day, new Date(2015,7,17,sH,sM), new Date(2015,7,17,eH), opt); break;
+          case 3:
+            timetable.addEvent(name, day, new Date(2015,7,17,sH), new Date(2015,7,17,eH), opt); break;
+          default:
+            timetable.addEvent(name, day, new Date(2015,7,17,sH,sM), new Date(2015,7,17,eH,eM), opt); break;
+        }
+
+        renderer.draw('.timetable');
+      }
+
+      function addEvent(){
+        var noStartMin = false; var noEndMin = false;
+        var valid = false;
+        var name = document.getElementById("eventName").value;
+        var day = document.getElementById("day-select").value
+        var startH = document.getElementById("starthours").value;
+        var startM = document.getElementById("startminutes").value;
+        var endH = document.getElementById("endhours").value;
+        var endM = document.getElementById("endminutes").value;
+        if (document.getElementById("eventName").value == ""){
+          window.alert('Please fill in a event name!');
+        } else if (startH == endH){
+          if (startM == endM){
+            window.alert('Start time cannot be same as end time!')
+          } else if (startM > endM){
+            window.alert('Start time cannot be later than end time!')
+          } else {
+            valid = true;
+          }
+        } else if (startH < endH){
+            valid = true;
+        } else {
+          window.alert('Start time cannot be later than end time!')
+        }
+        if (startM == 0){
+          noStartMin = true;
+        }
+        if (endM == 0){
+          noEndMin = true;
+        }
+        if (valid == true){
+          createEvent(name, day, startH, startM, endH, endM, noStartMin, noEndMin);
+        }
+      }
+
+      const modal = document.querySelector(".modal");
+      const trigger = document.querySelector(".trigger");
+      const closeButton = document.querySelector(".close-button");
+
+      function toggleModal(data,correct) {
+          modal.classList.toggle("show-modal");
+          if (correct == true){
+            document.getElementById("textmodal").innerHTML = "<b>"+'Course: '+"</b>"+data.fullname+"<br />"+"<b>"+'Type: '+"</b>"+data.type + "<br />" + "<b>"+'Venue: '+"</b>"+data.venue+"<br />"+"<b>"+'Time: '+"</b>"+data.time+"<br />"+"<b>"+'Class Index: '+"</b>"+data.indexNo+"<br />"+"<b>"+'Group: '+"</b>"+data.group
+          }
+      }
+
+      function windowOnClick(event) {
+          if (event.target === modal) {
+              toggleModal();
+          } else if (event.target === modal2) {
+              toggleModal2();
+          }
+      }
+
+      closeButton.addEventListener("click", toggleModal);
+      window.addEventListener("click", windowOnClick);
+
+      const modal2 = document.querySelector(".modal2");
+      const trigger2 = document.querySelector(".trigger2");
+      const closeButton2 = document.querySelector(".close-button2");
+
+      function toggleModal2(data,correct) {
+          modal2.classList.toggle("show-modal2");
+      }
+
+      closeButton2.addEventListener("click", toggleModal2);
+
+    </script>
+
+</body>
+</html>
