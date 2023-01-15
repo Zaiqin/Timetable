@@ -48,6 +48,7 @@
     <input type="file" id="uploadfile" accept=".csv">
     <button id="uploadconfirm" class="but">Generate</button>
     <button id="guide" onclick="toggleModal2()" class="but">Help</button>
+    <button id="guide" onclick="toggleSet()" class="but">Toggle</button>
     <h5 style="float:right; margin-right: 40px; margin-top: 10px; color: lightgrey;">Created by: Zai Qin</h5>
     </div>
 
@@ -56,6 +57,7 @@
     <script src="scripts/timetable.js"></script>
     <script>
 
+      var toggle = 0;
       var courseCodes = [];
       var colorCodes = ["#f2777a","#e0587c","#f99157","#ffcc66","#99cc99","#66cccc","#4c99e6","#cc99cc","#26d9ac", "#d24dff", "#e6e619", "#ff4d4d"]
 
@@ -273,6 +275,32 @@
 
       function toggleModal2(data,correct) {
           modal2.classList.toggle("show-modal2");
+      }
+
+      function toggleSet() {
+          if (toggle == 0) {
+            var elements = document.querySelectorAll("li:nth-child(2n)")
+            for (var i = 0; i < elements.length;  i++) {
+              elements[i].setAttribute("style", "opacity:0.2");
+            }
+            toggle++;
+          } else if (toggle == 1) {
+            var elements = document.querySelectorAll("li")
+            for (var i = 0; i < elements.length;  i++) {
+              elements[i].setAttribute("style", "opacity:1");
+            }
+            var elements2 = document.querySelectorAll("li:nth-child(2n+1)")
+            for (var i = 0; i < elements2.length;  i++) {
+              elements2[i].setAttribute("style", "opacity:0.2");
+            }
+            toggle++;
+          } else {
+            var elements = document.querySelectorAll("li")
+            for (var i = 0; i < elements.length;  i++) {
+              elements[i].setAttribute("style", "opacity:1");
+            }
+            toggle = 0;
+          }
       }
 
       closeButton2.addEventListener("click", toggleModal2);
