@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NTU TimeVis</title>
+    <title>NTU TimeVis Double</title>
     <link rel="icon" type="image/x-icon" href="logo.png">
-    <link rel="stylesheet" href="styles/timetablejs.css">
+    <link rel="stylesheet" href="styles/timetablejs2.css">
     <link rel="stylesheet" href="styles/demo.css">
   </head>
   <body>
@@ -57,7 +57,7 @@
     <script>
 
       var courseCodes = [];
-      var colorCodes = ["#f2777a","#e0587c","#f99157","#ffcc66","#99cc99","#66cccc","#6699cc","#cc99cc","d27b53"]
+      var colorCodes = ["#f2777a","#e0587c","#f99157","#ffcc66","#99cc99","#66cccc","#4c99e6","#cc99cc","#26d9ac", "#d24dff", "#e6e619", "#ff4d4d"]
 
       function nextWeek() {
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
@@ -152,7 +152,8 @@
                 if (weekArray.includes(weekNo)){
                   var dispText;
                   if (results.data[i].Remark.includes("Teaching Wk")){
-                    dispText = results.data[i].Course+"\n"+results.data[i].Venue+"\nWeek "+results.data[i].Remark.substring(11,results.data[i].Remark.length)
+                    dispText = results.data[i].Course+"\n"+results.data[i].Venue
+                    //dispText = results.data[i].Course+"\n"+results.data[i].Venue+"\nWeek "+results.data[i].Remark.substring(11,results.data[i].Remark.length)  //Show Weeks
                   } else {
                     dispText = results.data[i].Course+"\n"+results.data[i].Venue+"\n"+results.data[i].Remark
                   }
@@ -251,7 +252,7 @@
       function toggleModal(data,correct) {
           modal.classList.toggle("show-modal");
           if (correct == true){
-            document.getElementById("textmodal").innerHTML = "<b>"+'Course: '+"</b>"+data.fullname+"<br />"+"<b>"+'Type: '+"</b>"+data.type + "<br />" + "<b>"+'Venue: '+"</b>"+data.venue+"<br />"+"<b>"+'Time: '+"</b>"+data.time+"<br />"+"<b>"+'Class Index: '+"</b>"+data.indexNo+"<br />"+"<b>"+'Group: '+"</b>"+data.group
+            document.getElementById("textmodal").innerHTML = "<b>"+'Course: '+"</b>"+data.fullname+"<br />"+"<b>"+'Type: '+"</b>"+data.type + "<br />" + "<b>"+'Venue: '+"</b>"+data.venue+"<br />"+"<b>"+'Time: '+"</b>"+data.time+"<br />"+"<b>"+'Class Index: '+"</b>"+data.indexNo+"<br />"+"<b>"+'Group: '+"</b>"+data.group+"<br />"+"<b>"+'Weeks: '+"</b>"+data.weekArray
           }
       }
 
