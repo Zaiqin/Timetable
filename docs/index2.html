@@ -144,7 +144,8 @@
                     id: results.data[i].Course,
                     indexNo: results.data[i]["Index\nNumber"],
                     group: results.data[i].Group,
-                    weekArray: weekArray
+                    weekArray: weekArray,
+                    swop: results.data[i].Swop
                   },
                     onClick: function(event, timetable, clickEvent) {
                       toggleModal(this.data,true)
@@ -174,6 +175,9 @@
                 boxes[i].style.backgroundColor = colorCodes[courseCodes.indexOf(boxes[i].dataset.id)]
                 if (boxes[i].dataset.venue == "ONLINE"){
                   boxes[i].style.border = "3px dashed white"
+                }
+                if (boxes[i].dataset.swop == "true"){
+                  boxes[i].style.border = "5px dashed red"
                 }
               } else {
                 boxes[i].remove();
