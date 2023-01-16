@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles/timetablejs2.css">
     <link rel="stylesheet" href="styles/demo.css">
   </head>
-  <body>
+  <body onload="Generate()">
     
     <div class="topnav">
       <img src="logo.png" style="float: left; margin: 10px 0px 10px 15px; height: 30px;">
@@ -45,12 +45,8 @@
     </div>
 
     <div class="eventCreator" style="display: block; text-align: center; margin-top: 15px;">
-    <input type="file" id="uploadfile" accept=".csv", href="styles/Y1S2Timetable.csv">
-    <button id="uploadconfirm" class="but">Generate</button>
-    <button id="guide" onclick="toggleModal2()" class="but">Help</button>
-    <button id="guide" onclick="toggleSet()" class="but">Toggle</button>
-    <a href="styles/Y1S2Timetable.csv" download> file_name </a>
-    <h5 style="float:right; margin-right: 40px; margin-top: 10px; color: lightgrey;">Created by: Zai Qin</h5>
+    <button id="guide" onclick="toggleSet()" style="margin-left: 100px;" class="but">Toggle</button>
+    <h5 style="float:right; margin-right: 50px; margin-top: 10px; color: lightgrey;">Created by: Zai Qin</h5>
     </div>
 
     <script type="text/javascript" src="scripts/papaparse.min.js"></script>
@@ -66,7 +62,7 @@
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
         if (weekNo != 13) {
           document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo+1);
-          document.getElementById('uploadconfirm').click()
+          Generate();
         }
       }
 
@@ -74,7 +70,7 @@
         var weekNo = parseInt(document.getElementsByClassName('weekTitle')[0].innerHTML.substring('4'));
         if (weekNo != 1){
           document.getElementsByClassName('weekTitle')[0].innerHTML = "WEEK " + (weekNo-1);
-          document.getElementById('uploadconfirm').click()
+          Generate();
         }
       }
 
@@ -85,8 +81,9 @@
               return option;
        }
 
-      const uploadconfirm = document.getElementById('uploadconfirm').addEventListener('click', () => {
-        Papa.parse(document.getElementById('uploadfile').files[0],
+      function Generate() {
+        console.log("Generating");
+        Papa.parse("https://raw.githubusercontent.com/Zaiqin/Timetable/main/docs/styles/Y1S2Timetable.csv",
         {
           download: true,
           header: true,
@@ -186,7 +183,7 @@
             }
           }
         });
-      });
+      };
 
       var timetable = new Timetable();
 

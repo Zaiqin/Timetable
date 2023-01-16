@@ -16,7 +16,7 @@
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	background-color: lightgray;
+	
 }
 
 
@@ -140,7 +140,7 @@
 
 .timetable ul.room-timeline li {
 	position: relative;
-	background-color: #330033;
+	background-color: #744d6b;
 	height: 10	0px;
 	margin-bottom: 10px;
 	opacity: 1;
