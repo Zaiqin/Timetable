@@ -45,7 +45,7 @@
     </div>
 
     <div class="eventCreator" style="display: block; text-align: center; margin-top: 15px;">
-    <input type="file" id="uploadfile" accept=".csv">
+    <input type="file" id="uploadfile" accept=".csv", href="styles/Y1S2Timetable.csv">
     <button id="uploadconfirm" class="but">Generate</button>
     <button id="guide" onclick="toggleModal2()" class="but">Help</button>
     <button id="guide" onclick="toggleSet()" class="but">Toggle</button>
@@ -300,6 +300,12 @@
               elements[i].setAttribute("style", "opacity:1");
             }
             toggle = 0;
+          }
+          var list = document.querySelectorAll("li")
+          for (var i = 0; i < list.length;  i++) {
+            if (list[i].childNodes[0].className == "time-label") {
+              list[i].setAttribute("style", "opacity:1");
+            }
           }
       }
 
