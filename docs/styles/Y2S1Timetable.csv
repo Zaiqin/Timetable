@@ -2,33 +2,47 @@ Course,Title,AU,"Course
 Type","Course
 Group",S/U Grade option,"Index
 Number",Status,Choice,"Class
-Type",Group,Day,Time,Venue,Remark
-CC0007,SCIENCE & TECHNOLOGY FOR HUMANITY,3,CORE,INTERDISCIPLINARY COLLABORATIVE CORE,,86541,REGISTERED,,TUT,T61,THU,1630-1820,ColLAB 1,Teaching Wk1-13
+Type",Group,Day,Time,Venue,Remark,
+CC0007,SCIENCE & TECHNOLOGY FOR HUMANITY,3,CORE,INTERDISCIPLINARY COLLABORATIVE CORE,,86541,REGISTERED,,TUT,T61,THU,1630-1820,ColLAB 1,Teaching Wk1-13,
 SC2000,PROBABILITY & STATISTICS FOR COMPUTING,3,CORE,,,10237,REGISTERED,,TUT,SCS3,TUE,1730-1820,"TR+23
-[Tutorial Room + 23 (NS)]",Teaching Wk2-13
+[Tutorial Room + 23 (NS)]",Teaching Wk2-13,
 ,,,,,,,,,LEC/STUDIO,SCL2,FRI,0930-1020,"LT19A
-[LT19A (NS)]",Teaching Wk1-13
+[LT19A (NS)]",Teaching Wk1-13,
 ,,,,,,,,,LEC/STUDIO,SCL2,MON,1230-1320,"LT1
-[LT1 (NS)]",Teaching Wk1-13
+[LT1 (NS)]",Teaching Wk1-13,
 SC2001,ALGORITHM DESIGN & ANALYSIS,3,CORE,,,10242,REGISTERED,,TUT,SCEC,THU,1430-1520,"TR+15
-[Tutorial Room + 15 (NS)]",Teaching Wk2-13
-,,,,,,,,,LAB,SCEC,TUE,1430-1620,HWLAB1,"Teaching Wk2,4,6,8,10,12"
-,,,,,,,,,LEC/STUDIO,SCL2,MON,1330-1420,ONLINE,Teaching Wk1-13
-,,,,,,,,,LEC/STUDIO,SCL2,FRI,1630-1720,ONLINE,Teaching Wk1-13
+[Tutorial Room + 15 (NS)]",Teaching Wk2-13,
+,,,,,,,,,LAB,SCEC,TUE,1430-1620,HWLAB1,"Teaching Wk2,4,6,8,10,12",
+,,,,,,,,,LEC/STUDIO,SCL2,MON,1330-1420,ONLINE,Teaching Wk1-13,
+,,,,,,,,,LEC/STUDIO,SCL2,FRI,1630-1720,ONLINE,Teaching Wk1-13,
 SC2002,OBJECT ORIENTED DESIGN & PROGRAMMING,3,CORE,,,10269,REGISTERED,,TUT,SCEB,MON,1130-1220,"TR+17
-[Tutorial Room + 17 (NS)]",Teaching Wk2-13
-,,,,,,,,,LAB,SCEB,TUE,1430-1620,SWLAB2,"Teaching Wk1,3,5,7,9,11,13"
+[Tutorial Room + 17 (NS)]",Teaching Wk2-13,
+,,,,,,,,,LAB,SCEB,TUE,1430-1620,SWLAB2,"Teaching Wk1,3,5,7,9,11,13",
 ,,,,,,,,,LEC/STUDIO,SCL2,TUE,0830-0920,"LT2A
-[LT2A (NS)]",Teaching Wk1-13
+[LT2A (NS)]",Teaching Wk1-13,
 ,,,,,,,,,LEC/STUDIO,SCL2,FRI,1130-1220,"LT2A
-[LT2A (NS)]",Teaching Wk1-13
+[LT2A (NS)]",Teaching Wk1-13,
 SC2104,"SENSORS, INTERFACING & DIGITAL CONTROL",3,CORE,,,10319,REGISTERED,,TUT,SCEC,MON,0930-1020,"TR+17
-[Tutorial Room + 17 (NS)]",Teaching Wk2-13
-,,,,,,,,,LAB,SCEC,FRI,1330-1620,HWLAB1,"Teaching Wk2,4,6,8,10,12"
+[Tutorial Room + 17 (NS)]",Teaching Wk2-13,
+,,,,,,,,,LAB,SCEC,FRI,1330-1620,HWLAB1,"Teaching Wk2,4,6,8,10,12",
 ,,,,,,,,,LEC/STUDIO,SCL2,TUE,1230-1420,"LT3
-[LT3 (NS)]",Teaching Wk1-13
+[LT3 (NS)]",Teaching Wk1-13,
 SC2107,MICROPROCESSOR SYSTEM DESIGN & DEVELOPMENT,3,CORE,,,10325,REGISTERED,,TUT,SCEB,FRI,1030-1120,"LHN-TR+01
-[Tutorial Room + 1 (The Arc)]",Teaching Wk2-13
-,,,,,,,,,LAB,SCEB,THU,0930-1220,HWLAB2,"Teaching Wk1,3,5,7,9,11,13"
+[Tutorial Room + 1 (The Arc)]",Teaching Wk2-13,
+,,,,,,,,,LAB,SCEB,THU,0930-1220,HWLAB2,"Teaching Wk1,3,5,7,9,11,13",
 ,,,,,,,,,LEC/STUDIO,SCL2,WED,0930-1120,"LT6
-[LT6 (NS)]",Teaching Wk1-13
+[LT6 (NS)]",Teaching Wk1-13,
+HP2500,Personality & Indiv Diff,3,PE,,,19720,Registered,,Lec/Stu,LEC1,Tue,1330to1520,"LT27
+[LT27 (SS)]",Teaching Wk1-13,
+,,,,,,,,,Tut,T3,Thu,1630to1820,"HSSSEMRM8
+[Seminar Room 8 (SHHK)]",Teaching Wk1-13,
+HP3003,The Psy Of Everyday Design,3,PE,,,19722,Registered,,Lec/Stu,LEC1,Thu,0930to1220,"LT12
+[LT12 (NS)]",Teaching Wk1-13,Not Applicable
+HP3502,Psychology Of Emotion,3,PE,,,19751,Registered,,Lec/Stu,LEC2,Wed,1530to1820,"LHS-TR+32
+[Tutorial Room + 32 (The Hive)]",Teaching Wk1-13,Not Applicable
+HP3901,Cultural Psychology,3,PE,,,19736,Registered,,Lec/Stu,LEC2,Tue,1530to1820,"LHS-LT
+[LT (HIVE)]",Teaching Wk1-13,29-Nov-2023 0900to1130 hrs
+HP4107,Industrial-Org Psy In Prac,4,PE,,,19747,Registered,,Sem,SEM1,Thu,1330to1620,"LT18
+[LT18 (NS)]",Teaching Wk1-13,Not Applicable
+HP4261,Sem In Perceptual & Cog Neuros,4,PE,,,19753,Registered,,Sem,SEM1,Fri,1330to1620,"LT17
+[LT17 (NS)]",Teaching Wk1-13,Not Applicable
